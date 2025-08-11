@@ -1,25 +1,13 @@
-import UserService from "./domains/User/services/UserService";
+import express from "express";
 
-async function main() {
-  const body = {
-    id: 0,
-    nome: "Maria",
-    email: "maria@gmail.com",
-    senha: "senha12345",
-    foto: "foto.jpg",
-    permissao: false,
-  };
+const app = express();
+app.use(express.json());
 
-  try {
-    const user = await UserService.create(body);
-    console.log("Usuário criado:", user);
-  } catch (error: any) {
-    if (error.message.includes("Unique constraint failed")) {
-      console.log("Erro: Email já cadastrado!");
-    } else {
-      console.error("Erro ao criar usuário:", error);
-    }
-  }
-}
+app.get("/", (req, res) => {
+  res.send("API está rodando! ");
+});
 
-main();
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor rodando em: http://localhost:${PORT}`);
+});

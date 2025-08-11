@@ -1,19 +1,11 @@
-import { Usuario } from "@prisma/client";
-import prisma from "../../../../config/prismaClients";
+import { PrismaClient, Usuario } from "@prisma/client";
+const prisma = new PrismaClient();
 
-class UserService {
-    async create(body: Usuario){
-        const user = await prisma.usuario.create({
-            data: {
-                nome: body.nome,
-                email: body.email,
-                senha: body.senha,
-                foto: body.foto,
-                permissao: body.permissao,
-            }
-    });
-    return user;
-    }
-}
-
-export default new UserService();
+export default {
+  create: (data: Omit<Usuario, "id">) => prisma.usuario.create({ data }),
+  findAll: () => prisma.usuario.findMany(),
+  findById: (id: number) => prisma.usuario.findUnique({ where: { id } }),
+  update: (id: number, data: Partial<Omit<Usuario, "id">>) =>
+    prisma.usuario.update({ where: { id }, data }),
+  delete: (id: number) => prisma.usuario.delete({ where: { id } }),
+};

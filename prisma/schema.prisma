@@ -1,5 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// This is your Prisma schema file
+// Learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
@@ -14,8 +14,56 @@ model Usuario {
   id        Int      @id @default(autoincrement())
   nome      String
   email     String   @unique
-  senha  String
+  senha     String
   foto      String?
-  permissao Boolean @default(false)   
+  permissao Boolean  @default(false)
+
+  songUsers SongUser[]
 }
 
+model Artist {
+  id        Int       @id @default(autoincrement())
+  name      String
+  photoUrl  String?
+  streams   Int       @default(0)
+
+  albums    Album[]
+  songs     Song[]
+}
+
+model Album {
+  id          Int         @id @default(autoincrement())
+  title       String
+  coverUrl    String?
+  releaseDate DateTime?
+
+  artistId    Int
+  artist      Artist      @relation(fields: [artistId], references: [id])
+
+  songs       Song[]
+}
+
+model Song {
+  id        Int      @id @default(autoincrement())
+  name      String
+  genre     String
+  coverUrl  String?
+
+  artistId  Int
+  artist    Artist   @relation(fields: [artistId], references: [id])
+
+  albumId   Int
+  album     Album    @relation(fields: [albumId], references: [id])
+
+  listeners SongUser[]
+}
+
+model SongUser {
+  id       Int      @id @default(autoincrement())
+
+  userId   Int
+  usuario  Usuario  @relation(fields: [userId], references: [id])
+
+  songId   Int
+  song     Song     @relation(fields: [songId], references: [id])
+}

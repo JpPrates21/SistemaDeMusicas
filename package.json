@@ -19,13 +19,22 @@
   },
   "homepage": "https://github.com/JpPrates21/SistemaDeMusicas#readme",
   "devDependencies": {
-    "@types/node": "^24.1.0",
+    "@eslint/js": "^9.33.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.2.1",
+    "eslint": "^8.57.1",
+    "globals": "^16.3.0",
+    "jiti": "^2.5.1",
     "prisma": "^6.13.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.39.0"
   },
   "dependencies": {
     "@prisma/client": "^6.13.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
     "node": "^20.19.4"
   }
 }
